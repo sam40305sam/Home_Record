@@ -13,12 +13,11 @@ class DataController extends Controller
         $latest = Carbon::parse(Record::latest()->first()->time);
         $from_date = Carbon::parse(Record::latest()->first()->time)->subHours(1);
         $records = Record::selectRaw(
-            "AVG(temperature) avg_temp,AVG(humidity) avg_hum, DATE_FORMAT(time, '%Y-%m-%d %H:%i') data"
+            "AVG(temperature) avg_temp,AVG(humidity) avg_hum, DATE_FORMAT(concat(date(time),' ',hour(time),':',floor( minute(time)/5 )*5) ,'%Y-%m-%d %H:%i') as data "
         )
             ->whereBetween('time', [$from_date, $latest])
             ->groupBy('data')
             ->get();
-//        dd($records);
         $datas = [
             'records' => $records,
         ];
