@@ -51,7 +51,7 @@ class DataController extends Controller
                 case "H":
                     $from_date = Carbon::parse(Record::latest()->first()->time)->subHours(1);
                     $records = Record::selectRaw(
-                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d %H:%i') data"
+                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum, DATE_FORMAT(concat(date(time),' ',hour(time),':',floor( minute(time)/5 )*5) ,'%Y-%m-%d %H:%i') as data "
                     )
                         ->whereBetween('time', [$from_date, $latest])
                         ->groupBy('data')
@@ -71,11 +71,12 @@ class DataController extends Controller
                 case "W":
                     $from_date = Carbon::parse(Record::latest()->first()->time)->subDays(7);
                     $records = Record::selectRaw(
-                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d %H') data"
+                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum, DATE_FORMAT(concat(date(time),' ',floor( HOUR(time)/4 )*4) ,'%Y-%m-%d %H') as data "
                     )
                         ->whereBetween('time', [$from_date, $latest])
                         ->groupBy('data')
                         ->get();
+
                     $item_title = "一周";
                     break;
                 case "M":
