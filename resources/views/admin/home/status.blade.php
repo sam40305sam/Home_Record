@@ -79,7 +79,7 @@
                     },
                     yaxis: {
                         min: 0,
-                        max: {{$records->max('version')+100}}
+                        max: {{$records->max('count_data')+100}}
                     }
                 }
 
