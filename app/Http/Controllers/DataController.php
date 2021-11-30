@@ -28,8 +28,6 @@ class DataController extends Controller
     {
         $latest = Carbon::parse(Carbon::today())->endOfDay();
         $from_date = Carbon::parse(Carbon::today())->subMonth();
-        echo $latest;
-        return 0;
         $records = Record::selectRaw(
             "count(*) count_data, DATE_FORMAT(date(time),'%m-%d-%Y') as data "
         )
