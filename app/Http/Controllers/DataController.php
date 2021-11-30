@@ -24,6 +24,22 @@ class DataController extends Controller
         return view('admin.home.index', $datas);
     }
 
+    public function status()
+    {
+        $latest = Carbon::parse(Carbon::now());
+        $from_date = Carbon::parse(Carbon::now())->subMonths(1);
+        $records = Record::selectRaw(
+            "count(*) count_data, DATE_FORMAT(date(time),'%m-%d-%Y') as data "
+        )
+            ->whereBetween('time', [$from_date, $latest])
+            ->groupBy('data')
+            ->get();
+        $datas = [
+            'records' => $records,
+        ];
+        return view('admin.home.status', $datas);
+    }
+
     public function show($range)
     {
         if ($range == "m" || $range == "H" || $range == "D" || $range == "W" || $range == "M" || $range == "HM" || $range == "Y") {

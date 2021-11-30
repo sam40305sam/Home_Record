@@ -26,6 +26,10 @@
                         <a class="nav-link" href="{{route("admin.home.search","Y")}}">一年</a>
                     </nav>
                 </div>
+                <a class="nav-link" href="{{route("admin.status")}}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Status
+                </a>
             </div>
         </div>
         <div class="sb-sidenav-footer">

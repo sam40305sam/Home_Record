@@ -22,7 +22,7 @@ class RecordsTableSeeder extends Seeder
             Record::create([
                                'temperature' => rand(0, 100),
                                'humidity' => rand(0, 100),
-                               'time' => Carbon::now()->subSeconds(($max - $number) * 5),
+                               'time' => Carbon::now()->subHours(($max - $number)),
                            ]);
         }
     }

@@ -21,8 +21,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('home', function () {
         return view('home');
     });
+
     Route::get('admin', [\App\Http\Controllers\DataController::class, "index"])->name("admin.home");
     Route::get('admin/search/{range}', [\App\Http\Controllers\DataController::class, "show"])->name(
         "admin.home.search"
     );
+    Route::get('admin/status', [\App\Http\Controllers\DataController::class, "status"])->name("admin.status");
 });
