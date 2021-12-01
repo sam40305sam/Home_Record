@@ -31,9 +31,6 @@
                     chart: {
                         type: 'area',
                         height: 325,
-                        zoom: {
-                            enabled: false
-                        },
                         animations: {
                             enabled: true,
                             easing: 'easeinout',
@@ -49,7 +46,7 @@
                         }
                     },
                     stroke: {
-                        curve: 'straight'
+                        curve: 'smooth'
                     },
                     dataLabels: {
                         enabled: false
@@ -75,7 +72,13 @@
                         type: 'datetime',
                         labels: {
                             format: 'yyyy-MM-dd',
+                            datetimeUTC:false,
                         }
+                    },
+                    tooltip: {
+                    x: {
+                        format: 'yyyy-MM-dd'
+                    }
                     },
                     yaxis: {
                         min: 0,

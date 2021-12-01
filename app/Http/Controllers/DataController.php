@@ -27,6 +27,8 @@ class DataController extends Controller
     public function status()
     {
         $latest = Carbon::parse(Carbon::today())->endOfDay();
+        echo $latest;
+        // return ;
         $from_date = Carbon::parse(Carbon::today())->subMonth();
         $records = Record::selectRaw(
             "count(*) count_data, DATE_FORMAT(date(time),'%m-%d-%Y') as data "
@@ -34,6 +36,7 @@ class DataController extends Controller
             ->whereBetween('time', [$from_date, $latest])
             ->groupBy('data')
             ->get();
+            // dd($records);
         $datas = [
             'records' => $records,
         ];
