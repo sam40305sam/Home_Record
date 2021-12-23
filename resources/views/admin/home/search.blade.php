@@ -98,10 +98,10 @@
                             pointBorderWidth: 2,
                             data: [
                                 @foreach($records as $record)
-                                        {{$record->avg_temp}}
-                                        @if(!($loop->last))
-                                ,
-                                @endif
+                                    {{$record->avg_temp}}
+                                    @if(!($loop->last))
+                                        ,
+                                    @endif
                                 @endforeach
                             ],
                         }],
