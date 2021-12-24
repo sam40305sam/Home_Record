@@ -77,7 +77,7 @@
                     data: {
                         labels: [
                             @foreach($records as $record)
-                                "{{$record->data}}"
+                                "{{$record->time}}"
                             @if(!($loop->last))
                             ,
                             @endif
@@ -97,7 +97,7 @@
                             pointBorderWidth: 2,
                             data: [
                                 @foreach($records as $record)
-                                        {{$record->avg_temp}}
+                                        {{$record->avg_tem}}
                                         @if(!($loop->last))
                                 ,
                                 @endif
@@ -140,7 +140,7 @@
                     data: {
                         labels: [
                             @foreach($records as $record)
-                                "{{$record->data}}"
+                                "{{$record->time}}"
                             @if(!($loop->last))
                             ,
                             @endif

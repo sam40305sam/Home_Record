@@ -17,8 +17,9 @@ class DataController extends Controller
 {
     public function index()
     {
-        $latest = Carbon::parse(RecordH::latest()->first()->time);
-        $from_date = Carbon::parse($latest)->subHours(1);
+        $latest_data=RecordH::orderBy('id', 'desc')->first();
+        $latest = Carbon::parse($latest_data->time);
+        $from_date = Carbon::parse($latest_data->time)->subHours(1);
         $records = RecordH::whereBetween('time', [$from_date, $latest])
             ->get();
 
