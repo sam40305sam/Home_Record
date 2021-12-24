@@ -51,12 +51,47 @@ class DataController extends Controller
     {
         //M
         set_time_limit(0);
+        // $from_date = Carbon::parse(Carbon::today())->subYears(1);
+        // $from_temp = Carbon::parse($from_date)->endOfDay();
+        // $latest = Carbon::parse(Carbon::today())->endOfDay();
+        // while(Carbon::parse($from_temp)->subDays(1)->endofDay()!=$latest){
+        //     $records = Record::selectRaw(
+        //         "count(time) numbers, AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d %H:%i:%s') data"
+        //     )
+        //         ->whereBetween('time', [$from_date, $from_temp])
+        //         ->groupBy('data')
+        //         ->get();
+        //     if(!$records->count()){
+        //         $from_date = Carbon::parse($from_date)->addDays(1);
+        //         $from_temp = Carbon::parse($from_date)->endOfDay();
+        //         continue;
+        //     }else{
+        //         echo $from_date." ".$from_temp."<br><br>";
+        //         foreach ($records as $record){
+        //             $data = [
+        //                 'avg_tem' => $record->avg_temp,
+        //                 'avg_hum' => $record->avg_hum,
+        //                 'numbers' => $record->numbers,
+        //                 'time' => $record->data
+        //             ];
+        //             var_dump($data);
+        //             echo "<br>";
+        //             echo "<br>";
+        //             $record = RecordM::create($data);
+        //         }
+        //     }
+        //     $from_date = Carbon::parse($from_date)->addDays(1);
+        //     $from_temp = Carbon::parse($from_date)->endOfDay();
+        // }
+        // return "asd";
+        
+        
         $from_date = Carbon::parse(Carbon::today())->subYears(1);
         $from_temp = Carbon::parse($from_date)->endOfDay();
         $latest = Carbon::parse(Carbon::today())->endOfDay();
         while(Carbon::parse($from_temp)->subDays(1)->endofDay()!=$latest){
             $records = Record::selectRaw(
-                "count(time) numbers, AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d %H:%i:%s') data"
+                "count(time) numbers, AVG(temperature) avg_temp,AVG(humidity) avg_hum, DATE_FORMAT(concat(date(time),' ',hour(time),':',floor( minute(time)/5 )*5) ,'%Y-%m-%d %H:%i:00') as data"
             )
                 ->whereBetween('time', [$from_date, $from_temp])
                 ->groupBy('data')
@@ -77,7 +112,7 @@ class DataController extends Controller
                     var_dump($data);
                     echo "<br>";
                     echo "<br>";
-                    $record = RecordM::create($data);
+                    $record = RecordH::create($data);
                 }
             }
             $from_date = Carbon::parse($from_date)->addDays(1);
@@ -86,66 +121,107 @@ class DataController extends Controller
         return "asd";
         
         
-        
-        // $records = Record::selectRaw(
-        //     "count(time) numbers, AVG(temperature) avg_temp,AVG(humidity) avg_hum, DATE_FORMAT(concat(date(time),' ',hour(time),':',floor( minute(time)/5 )*5) ,'%Y-%m-%d %H:%i') as data"
-        // )
-        //     ->groupBy('data')
-        //     ->get();
-        // foreach ($records as $record){
-        //     $data = [
-        //         'avg_tem' => $record->avg_temp,
-        //         'avg_hum' => $record->avg_hum,
-        //         'numbers' => $record->numbers,
-        //         'time' => $record->data
-        //     ];
-        //     $record = RecordH::create($data);
+        // $from_date = Carbon::parse(Carbon::today())->subYears(1);
+        // $from_temp = Carbon::parse($from_date)->endOfDay();
+        // $latest = Carbon::parse(Carbon::today())->endOfDay();
+        // while(Carbon::parse($from_temp)->subDays(1)->endofDay()!=$latest){
+        //     $records = Record::selectRaw(
+        //         "count(time) numbers, AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d %H:00:00') as data"
+        //     )
+        //         ->whereBetween('time', [$from_date, $from_temp])
+        //         ->groupBy('data')
+        //         ->get();
+        //     if(!$records->count()){
+        //         $from_date = Carbon::parse($from_date)->addDays(1);
+        //         $from_temp = Carbon::parse($from_date)->endOfDay();
+        //         continue;
+        //     }else{
+        //         echo $from_date." ".$from_temp."<br><br>";
+        //         foreach ($records as $record){
+        //             $data = [
+        //                 'avg_tem' => $record->avg_temp,
+        //                 'avg_hum' => $record->avg_hum,
+        //                 'numbers' => $record->numbers,
+        //                 'time' => $record->data
+        //             ];
+        //             var_dump($data);
+        //             echo "<br>";
+        //             echo "<br>";
+        //             $record = RecordD::create($data);
+        //         }
+        //     }
+        //     $from_date = Carbon::parse($from_date)->addDays(1);
+        //     $from_temp = Carbon::parse($from_date)->endOfDay();
         // }
+        // return "asd";
         
-        // $records = Record::selectRaw(
-        //     "count(time) numbers, AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d %H:00:00') data"
-        // )
-        //     ->groupBy('data')
-        //     ->get();
-        // foreach ($records as $record){
-        //     $data = [
-        //         'avg_tem' => $record->avg_temp,
-        //         'avg_hum' => $record->avg_hum,
-        //         'numbers' => $record->numbers,
-        //         'time' => $record->data
-        //     ];
-        //     $record = RecordD::create($data);
+        // $from_date = Carbon::parse(Carbon::today())->subYears(1);
+        // $from_temp = Carbon::parse($from_date)->endOfDay();
+        // $latest = Carbon::parse(Carbon::today())->endOfDay();
+        // while(Carbon::parse($from_temp)->subDays(1)->endofDay()!=$latest){
+        //     $records = Record::selectRaw(
+        //         "count(time) numbers, AVG(temperature) avg_temp,AVG(humidity) avg_hum, DATE_FORMAT(concat(date(time),' ',floor( HOUR(time)/4 )*4) ,'%Y-%m-%d %H:00:00') as data"
+        //     )
+        //         ->whereBetween('time', [$from_date, $from_temp])
+        //         ->groupBy('data')
+        //         ->get();
+        //     if(!$records->count()){
+        //         $from_date = Carbon::parse($from_date)->addDays(1);
+        //         $from_temp = Carbon::parse($from_date)->endOfDay();
+        //         continue;
+        //     }else{
+        //         echo $from_date." ".$from_temp."<br><br>";
+        //         foreach ($records as $record){
+        //             $data = [
+        //                 'avg_tem' => $record->avg_temp,
+        //                 'avg_hum' => $record->avg_hum,
+        //                 'numbers' => $record->numbers,
+        //                 'time' => $record->data
+        //             ];
+        //             var_dump($data);
+        //             echo "<br>";
+        //             echo "<br>";
+        //             $record = RecordW::create($data);
+        //         }
+        //     }
+        //     $from_date = Carbon::parse($from_date)->addDays(1);
+        //     $from_temp = Carbon::parse($from_date)->endOfDay();
         // }
-        
-        // $records = Record::selectRaw(
-        //     "count(time) numbers, AVG(temperature) avg_temp,AVG(humidity) avg_hum, DATE_FORMAT(concat(date(time),' ',floor( HOUR(time)/4 )*4) ,'%Y-%m-%d %H:00:00') as data"
-        // )
-        //     ->groupBy('data')
-        //     ->get();
-        // foreach ($records as $record){
-        //     $data = [
-        //         'avg_tem' => $record->avg_temp,
-        //         'avg_hum' => $record->avg_hum,
-        //         'numbers' => $record->numbers,
-        //         'time' => $record->data
-        //     ];
-        //     $record = RecordW::create($data);
+        // return "asd";
+
+        // $from_date = Carbon::parse(Carbon::today())->subYears(1);
+        // $from_temp = Carbon::parse($from_date)->endOfDay();
+        // $latest = Carbon::parse(Carbon::today())->endOfDay();
+        // while(Carbon::parse($from_temp)->subDays(1)->endofDay()!=$latest){
+        //     $records = Record::selectRaw(
+        //         "count(time) numbers, AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d 00:00:00') data"
+        //     )
+        //         ->whereBetween('time', [$from_date, $from_temp])
+        //         ->groupBy('data')
+        //         ->get();
+        //     if(!$records->count()){
+        //         $from_date = Carbon::parse($from_date)->addDays(1);
+        //         $from_temp = Carbon::parse($from_date)->endOfDay();
+        //         continue;
+        //     }else{
+        //         echo $from_date." ".$from_temp."<br><br>";
+        //         foreach ($records as $record){
+        //             $data = [
+        //                 'avg_tem' => $record->avg_temp,
+        //                 'avg_hum' => $record->avg_hum,
+        //                 'numbers' => $record->numbers,
+        //                 'time' => $record->data
+        //             ];
+        //             var_dump($data);
+        //             echo "<br>";
+        //             echo "<br>";
+        //             $record = RecordMM::create($data);
+        //         }
+        //     }
+        //     $from_date = Carbon::parse($from_date)->addDays(1);
+        //     $from_temp = Carbon::parse($from_date)->endOfDay();
         // }
-        
-        // $records = Record::selectRaw(
-        //     "count(time) numbers, AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d 00:00:00') data"
-        // )
-        //     ->groupBy('data')
-        //     ->get();
-        // foreach ($records as $record){
-        //     $data = [
-        //         'avg_tem' => $record->avg_temp,
-        //         'avg_hum' => $record->avg_hum,
-        //         'numbers' => $record->numbers,
-        //         'time' => $record->data
-        //     ];
-        //     $record = RecordMM::create($data);
-        // }
+        // return "asd";
         
         // $records = Record::selectRaw(
         //     "count(time) numbers, AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-01 00:00:00') data"
@@ -189,54 +265,33 @@ class DataController extends Controller
             $records = "";
             switch ($range) {
                 case "m":
-                    $from_date = Carbon::parse(Record::latest()->first()->time)->subMinute(1);
-                    $records = Record::selectRaw(
-                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d %H:%i:%s') data"
-                    )
-                        ->whereBetween('time', [$from_date, $latest])
-                        ->groupBy('data')
+                    $from_date = Carbon::parse(RecordM::latest()->first()->time)->subMinute(1);
+                    $records = RecordM::whereBetween('time', [$from_date, $latest])
                         ->get();
                     $item_title = "一分鐘";
                     break;
                 case "H":
                     $from_date = Carbon::parse(Record::latest()->first()->time)->subHours(1);
-                    $records = Record::selectRaw(
-                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum, DATE_FORMAT(concat(date(time),' ',hour(time),':',floor( minute(time)/5 )*5) ,'%Y-%m-%d %H:%i') as data "
-                    )
-                        ->whereBetween('time', [$from_date, $latest])
-                        ->groupBy('data')
+                    $records = RecordH::whereBetween('time', [$from_date, $latest])
                         ->get();
 
                     $item_title = "一小時";
                     break;
                 case "D":
                     $from_date = Carbon::parse(Record::latest()->first()->time)->subDays(1);
-                    $records = Record::selectRaw(
-                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d %H') data"
-                    )
-                        ->whereBetween('time', [$from_date, $latest])
-                        ->groupBy('data')
+                    $records = RecordD::whereBetween('time', [$from_date, $latest])
                         ->get();
                     $item_title = "一天";
                     break;
                 case "W":
                     $from_date = Carbon::parse(Record::latest()->first()->time)->subDays(7);
-                    $records = Record::selectRaw(
-                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum, DATE_FORMAT(concat(date(time),' ',floor( HOUR(time)/4 )*4) ,'%Y-%m-%d %H') as data "
-                    )
-                        ->whereBetween('time', [$from_date, $latest])
-                        ->groupBy('data')
+                    $records = RecordW::whereBetween('time', [$from_date, $latest])
                         ->get();
-
                     $item_title = "一周";
                     break;
                 case "M":
                     $from_date = Carbon::parse(Record::latest()->first()->time)->subMonths(1);
-                    $records = Record::selectRaw(
-                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d') data"
-                    )
-                        ->whereBetween('time', [$from_date, $latest])
-                        ->groupBy('data')
+                    $records = RecordMM::whereBetween('time', [$from_date, $latest])
                         ->get();
                     $item_title = "一個月";
                     break;

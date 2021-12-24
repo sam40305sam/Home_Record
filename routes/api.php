@@ -24,8 +24,8 @@ Route::get('record', [RecordController::class, "index"])->name("record.index");
 Route::get('record/{record}', [RecordController::class, "show"])->name("record.show");
 
 //Route::apiResource('record', RecordController::class);
-Route::post('record/search/{range}', [RecordController::class,"search"])->name("record.search");
-Route::post('record/refresh/{range}', [RecordController::class,"refresh"])->name("record.refresh");
+// Route::post('record/search/{range}', [RecordController::class,"search"])->name("record.search");
+// Route::post('record/refresh/{range}', [RecordController::class,"refresh"])->name("record.refresh");
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('record', [RecordController::class, "store"])->name("record.store");
