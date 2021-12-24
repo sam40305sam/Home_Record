@@ -9,7 +9,7 @@ class RecordH extends Model
 {
     use HasFactory;
 
-    protected $table = 'records_h';
+    protected $table = 'records_H';
 
     protected $fillable = [
         'avg_tem',
