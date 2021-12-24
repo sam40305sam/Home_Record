@@ -27,5 +27,6 @@ Route::group(['middleware' => 'auth'], function () {
         "admin.home.search"
     );
     Route::get('admin/status', [\App\Http\Controllers\DataController::class, "status"])->name("admin.status");
-    Route::get('admin/refresh_avg', [\App\Http\Controllers\DataController::class, "refresh_avg"])->name("admin.refresh_avg");
+    
+    // Route::get('admin/refresh_avg', [\App\Http\Controllers\DataController::class, "refresh_avg"])->name("admin.refresh_avg");
 });

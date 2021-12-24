@@ -47,10 +47,10 @@ class DataController extends Controller
         return view('admin.home.status', $datas);
     }
 
-    public function refresh_avg()
-    {
-        //M
-        set_time_limit(0);
+    // public function refresh_avg()
+    // {
+    //     M
+    //     set_time_limit(0);
         // $from_date = Carbon::parse(Carbon::today())->subYears(1);
         // $from_temp = Carbon::parse($from_date)->endOfDay();
         // $latest = Carbon::parse(Carbon::today())->endOfDay();
@@ -281,66 +281,66 @@ class DataController extends Controller
         // return "asd";
         
 
-        $from_date = Carbon::parse(Carbon::today())->subYears(1);
-        $from_temp = Carbon::parse($from_date)->endOfDay();
-        $latest = Carbon::parse(Carbon::today())->endOfDay();
-        $temp=Carbon::parse($from_date)->subDays(1)->format('Y-m')."-01 00:00:00";
-        $data=[
-            'avg_tem' => 0,
-            'avg_hum' => 0,
-            'numbers' => 0,
-            'time' => $temp
-        ];
-        while(Carbon::parse($from_temp)->subDays(1)->endofDay()!=$latest){
-            $records = Record::selectRaw(
-                "count(time) numbers, AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-01 00:00:00') as data"
-            )
-                ->whereBetween('time', [$from_date, $from_temp])
-                ->groupBy('data')
-                ->get();
-            if(!$records->count()){
-                $temp=Carbon::parse($from_date)->format('Y-m')."-01 00:00:00";
-                $from_date = Carbon::parse($from_date)->addDays(1);
-                $from_temp = Carbon::parse($from_date)->endOfDay();
-                continue;
-            }else{
-                foreach ($records as $record){
-                    if($temp==$record->data){
-                        $data=[
-                            'avg_tem' => (($data['avg_tem']*$data['numbers'])+($record->avg_temp*$record->numbers))/($data['numbers']+$record->numbers),
-                            'avg_hum' => (($data['avg_hum']*$data['numbers'])+($record->avg_hum*$record->numbers))/($data['numbers']+$record->numbers),
-                            'numbers' => ($data['numbers']+$record->numbers),
-                            'time' => $temp
-                        ];
-                    }else{
-                        echo $from_date." ".$from_temp."<br><br>";
-                        var_dump($data);
-                        echo "<br>";
-                        echo "<br>";
-                        RecordY::create($data);
-                        $data=[
-                            'avg_tem' => $record->avg_temp,
-                            'avg_hum' => $record->avg_hum,
-                            'numbers' => $record->numbers,
-                            'time' => $temp
-                        ];
-                    }
-                }
-            }
-            $temp=Carbon::parse($from_date)->format('Y-m')."-01 00:00:00";
-            $from_date = Carbon::parse($from_date)->addDays(1);
-            $from_temp = Carbon::parse($from_date)->endOfDay();
-        }
-        echo $from_date." ".$from_temp."<br><br>";
-        var_dump($data);
-        echo "<br>";
-        echo "<br>";
-        RecordY::create($data);
-        return "asd";
+        // $from_date = Carbon::parse(Carbon::today())->subYears(1);
+        // $from_temp = Carbon::parse($from_date)->endOfDay();
+        // $latest = Carbon::parse(Carbon::today())->endOfDay();
+        // $temp=Carbon::parse($from_date)->subDays(1)->format('Y-m')."-01 00:00:00";
+        // $data=[
+        //     'avg_tem' => 0,
+        //     'avg_hum' => 0,
+        //     'numbers' => 0,
+        //     'time' => $temp
+        // ];
+        // while(Carbon::parse($from_temp)->subDays(1)->endofDay()!=$latest){
+        //     $records = Record::selectRaw(
+        //         "count(time) numbers, AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-01 00:00:00') as data"
+        //     )
+        //         ->whereBetween('time', [$from_date, $from_temp])
+        //         ->groupBy('data')
+        //         ->get();
+        //     if(!$records->count()){
+        //         $temp=Carbon::parse($from_date)->format('Y-m')."-01 00:00:00";
+        //         $from_date = Carbon::parse($from_date)->addDays(1);
+        //         $from_temp = Carbon::parse($from_date)->endOfDay();
+        //         continue;
+        //     }else{
+        //         foreach ($records as $record){
+        //             if($temp==$record->data){
+        //                 $data=[
+        //                     'avg_tem' => (($data['avg_tem']*$data['numbers'])+($record->avg_temp*$record->numbers))/($data['numbers']+$record->numbers),
+        //                     'avg_hum' => (($data['avg_hum']*$data['numbers'])+($record->avg_hum*$record->numbers))/($data['numbers']+$record->numbers),
+        //                     'numbers' => ($data['numbers']+$record->numbers),
+        //                     'time' => $temp
+        //                 ];
+        //             }else{
+        //                 echo $from_date." ".$from_temp."<br><br>";
+        //                 var_dump($data);
+        //                 echo "<br>";
+        //                 echo "<br>";
+        //                 RecordY::create($data);
+        //                 $data=[
+        //                     'avg_tem' => $record->avg_temp,
+        //                     'avg_hum' => $record->avg_hum,
+        //                     'numbers' => $record->numbers,
+        //                     'time' => $temp
+        //                 ];
+        //             }
+        //         }
+        //     }
+        //     $temp=Carbon::parse($from_date)->format('Y-m')."-01 00:00:00";
+        //     $from_date = Carbon::parse($from_date)->addDays(1);
+        //     $from_temp = Carbon::parse($from_date)->endOfDay();
+        // }
+        // echo $from_date." ".$from_temp."<br><br>";
+        // var_dump($data);
+        // echo "<br>";
+        // echo "<br>";
+        // RecordY::create($data);
+        // return "asd";
 
-        return "OK";
-        return view('admin.home.status', $datas);
-    }
+        // return "OK";
+        // return view('admin.home.status', $datas);
+    // }
 
     public function show($range)
     {

@@ -77,7 +77,7 @@ class RecordController extends Controller
             $record = RecordM::create($data);
         }
 
-        $m_time="{$time->year}-{$time->month}-{$time->day} {$time->hour}:".floor($time->minute/5*5);
+        $m_time="{$time->year}-{$time->month}-{$time->day} {$time->hour}:".(floor($time->minute/5)*5).":00";
         $m_time=Carbon::parse($m_time);
         $data=RecordH::where('time',$m_time)->first();
         if($data){
@@ -98,7 +98,7 @@ class RecordController extends Controller
             $record = RecordH::create($data);
         }
 
-        $m_time="{$time->year}-{$time->month}-{$time->day} {$time->hour}".":00";
+        $m_time="{$time->year}-{$time->month}-{$time->day} {$time->hour}".":00:00";
         $m_time=Carbon::parse($m_time);
         $data=RecordD::where('time',$m_time)->first();
         if($data){
@@ -119,7 +119,7 @@ class RecordController extends Controller
             $record = RecordD::create($data);
         }
 
-        $m_time="{$time->year}-{$time->month}-{$time->day} ".floor($time->hour/4*4).":00";
+        $m_time="{$time->year}-{$time->month}-{$time->day} ".floor($time->hour/4*4).":00:00";
         $m_time=Carbon::parse($m_time);
         $data=RecordW::where('time',$m_time)->first();
         if($data){
@@ -140,7 +140,7 @@ class RecordController extends Controller
             $record = RecordW::create($data);
         }
 
-        $m_time="{$time->year}-{$time->month}-{$time->day}";
+        $m_time="{$time->year}-{$time->month}-{$time->day} 00:00:00";
         $m_time=Carbon::parse($m_time);
         $data=RecordMM::where('time',$m_time)->first();
         if($data){
@@ -161,7 +161,7 @@ class RecordController extends Controller
             $record = RecordMM::create($data);
         }
 
-        $m_time="{$time->year}-{$time->month}-01";
+        $m_time="{$time->year}-{$time->month}-01 00:00:00";
         $m_time=Carbon::parse($m_time);
         $data=RecordHM::where('time',$m_time)->first();
         if($data){
@@ -182,7 +182,7 @@ class RecordController extends Controller
             $record = RecordHM::create($data);
         }
 
-        $m_time="{$time->year}-{$time->month}-01";
+        $m_time="{$time->year}-{$time->month}-01 00:00:00";
         $m_time=Carbon::parse($m_time);
         $data=RecordY::where('time',$m_time)->first();
         if($data){
