@@ -338,58 +338,77 @@ class RecordController extends Controller
                 case "m":
                     $from_date = Carbon::parse(Record::latest()->first()->time)->subMinute(1);
                     $records = Record::selectRaw(
-                        "count(time) numbers, AVG(temperature) avg_tem,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d %H:%i:%s') data"
+                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d %H:%i:%s') data"
                     )
+                        ->whereBetween('time', [$from_date, $latest])
                         ->groupBy('data')
                         ->get();
+                    $item_title = "一分鐘";
                     break;
                 case "H":
                     $from_date = Carbon::parse(Record::latest()->first()->time)->subHours(1);
                     $records = Record::selectRaw(
-                        "count(time) numbers, AVG(temperature) avg_tem,AVG(humidity) avg_hum, DATE_FORMAT(concat(date(time),' ',hour(time),':',floor( minute(time)/5 )*5) ,'%Y-%m-%d %H:%i') as data"
+                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum, DATE_FORMAT(concat(date(time),' ',hour(time),':',floor( minute(time)/5 )*5) ,'%Y-%m-%d %H:%i') as data "
                     )
+                        ->whereBetween('time', [$from_date, $latest])
                         ->groupBy('data')
                         ->get();
+
+                    $item_title = "一小時";
                     break;
                 case "D":
                     $from_date = Carbon::parse(Record::latest()->first()->time)->subDays(1);
                     $records = Record::selectRaw(
-                        "count(time) numbers, AVG(temperature) avg_tem,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d %H:00:00') data"
+                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d %H') data"
                     )
+                        ->whereBetween('time', [$from_date, $latest])
                         ->groupBy('data')
                         ->get();
+                    $item_title = "一天";
                     break;
                 case "W":
                     $from_date = Carbon::parse(Record::latest()->first()->time)->subDays(7);
                     $records = Record::selectRaw(
-                        "count(time) numbers, AVG(temperature) avg_tem,AVG(humidity) avg_hum, DATE_FORMAT(concat(date(time),' ',floor( HOUR(time)/4 )*4) ,'%Y-%m-%d %H:00:00') as data"
+                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum, DATE_FORMAT(concat(date(time),' ',floor( HOUR(time)/4 )*4) ,'%Y-%m-%d %H') as data "
                     )
+                        ->whereBetween('time', [$from_date, $latest])
                         ->groupBy('data')
                         ->get();
+
+                    $item_title = "一周";
                     break;
                 case "M":
                     $from_date = Carbon::parse(Record::latest()->first()->time)->subMonths(1);
                     $records = Record::selectRaw(
-                        "count(time) numbers, AVG(temperature) avg_tem,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d 00:00:00') data"
+                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-%d') data"
                     )
+                        ->whereBetween('time', [$from_date, $latest])
                         ->groupBy('data')
                         ->get();
+                    $item_title = "一個月";
                     break;
                 case "HM":
+                    $from_date = Carbon::parse(Record::latest()->first()->time)->subMonths(6);
                     $records = Record::selectRaw(
-                        "count(time) numbers, AVG(temperature) avg_tem,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-01 00:00:00') data"
+                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m') data"
                     )
+                        ->whereBetween('time', [$from_date, $latest])
                         ->groupBy('data')
                         ->get();
-                    $from_date = Carbon::parse(Record::latest()->first()->time)->subMonths(6);
+                    $item_title = "半年";
                     break;
                 case "Y":
+                    $from_date = Carbon::parse(Record::latest()->first()->time)->subYears(1);
                     $records = Record::selectRaw(
-                        "count(time) numbers, AVG(temperature) avg_tem,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m-01 00:00:00') data"
+                        "AVG(temperature) avg_temp,AVG(humidity) avg_hum,  DATE_FORMAT(time, '%Y-%m') data"
                     )
+                        ->whereBetween('time', [$from_date, $latest])
                         ->groupBy('data')
                         ->get();
-                    $from_date = Carbon::parse(Record::latest()->first()->time)->subYears(1);
+                    $item_title = "一年";
+                    break;
+                default:
+                    return response(null, Response::HTTP_NOT_FOUND);
                     break;
             }
             $datas = [
