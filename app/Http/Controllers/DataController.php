@@ -17,14 +17,11 @@ class DataController extends Controller
 {
     public function index()
     {
-        $latest = Carbon::parse(Record::latest()->first()->time);
-        $from_date = Carbon::parse(Record::latest()->first()->time)->subHours(1);
-        $records = Record::selectRaw(
-            "AVG(temperature) avg_temp,AVG(humidity) avg_hum, DATE_FORMAT(concat(date(time),' ',hour(time),':',floor( minute(time)/5 )*5) ,'%Y-%m-%d %H:%i') as data "
-        )
-            ->whereBetween('time', [$from_date, $latest])
-            ->groupBy('data')
+        $latest = Carbon::parse(RecordH::latest()->first()->time);
+        $from_date = Carbon::parse($latest)->subHours(1);
+        $records = RecordH::whereBetween('time', [$from_date, $latest])
             ->get();
+
         $datas = [
             'records' => $records,
         ];

@@ -53,18 +53,18 @@ class RecordController extends Controller
                                'humidity' => 'required',
                                'time' => 'required',
                            ]);
-        $record = Record::create($request->all());
+        $records = Record::create($request->all());
         $time=Carbon::parse($request->time);
 
         $m_time="{$time->year}-{$time->month}-{$time->day} {$time->hour}:{$time->minute}:{$time->second}";
         $m_time=Carbon::parse($m_time);
-        $data=RecordM::where('time',$m_time)->first();
-        if($data){
-            RecordM::where('time',$m_time)
-                ->update([
-                    'avg_tem' => (($data->avg_tem*$data->numbers)+$request->temperature)/($data->numbers+1),
-                    'avg_hum'=>(($data->avg_hum*$data->numbers)+$request->humidity)/($data->numbers+1),
-                    'numbers'=>($data->numbers+1),
+        $data=RecordM::where('time',$m_time);
+        $first_data=$data->first();
+        if($first_data){
+            $data->update([
+                    'avg_tem' => (($first_data->avg_tem*$first_data->numbers)+$request->temperature)/($first_data->numbers+1),
+                    'avg_hum'=>(($first_data->avg_hum*$first_data->numbers)+$request->humidity)/($first_data->numbers+1),
+                    'numbers'=>($first_data->numbers+1),
                     'time' => $m_time
                 ]);
         }else{
@@ -79,13 +79,13 @@ class RecordController extends Controller
 
         $m_time="{$time->year}-{$time->month}-{$time->day} {$time->hour}:".(floor($time->minute/5)*5).":00";
         $m_time=Carbon::parse($m_time);
-        $data=RecordH::where('time',$m_time)->first();
-        if($data){
-            RecordH::where('time',$m_time)
-                ->update([
-                    'avg_tem' => (($data->avg_tem*$data->numbers)+$request->temperature)/($data->numbers+1),
-                    'avg_hum'=>(($data->avg_hum*$data->numbers)+$request->humidity)/($data->numbers+1),
-                    'numbers'=>($data->numbers+1),
+        $data=RecordH::where('time',$m_time);
+        $first_data=$data->first();
+        if($first_data){
+            $data->update([
+                    'avg_tem' => (($first_data->avg_tem*$first_data->numbers)+$request->temperature)/($first_data->numbers+1),
+                    'avg_hum'=>(($first_data->avg_hum*$first_data->numbers)+$request->humidity)/($first_data->numbers+1),
+                    'numbers'=>($first_data->numbers+1),
                     'time' => $m_time
                 ]);
         }else{
@@ -100,13 +100,13 @@ class RecordController extends Controller
 
         $m_time="{$time->year}-{$time->month}-{$time->day} {$time->hour}".":00:00";
         $m_time=Carbon::parse($m_time);
-        $data=RecordD::where('time',$m_time)->first();
-        if($data){
-            RecordD::where('time',$m_time)
-                ->update([
-                    'avg_tem' => (($data->avg_tem*$data->numbers)+$request->temperature)/($data->numbers+1),
-                    'avg_hum'=>(($data->avg_hum*$data->numbers)+$request->humidity)/($data->numbers+1),
-                    'numbers'=>($data->numbers+1),
+        $data=RecordD::where('time',$m_time);
+        $first_data=$data->first();
+        if($first_data){
+            $data->update([
+                    'avg_tem' => (($first_data->avg_tem*$first_data->numbers)+$request->temperature)/($first_data->numbers+1),
+                    'avg_hum'=>(($first_data->avg_hum*$first_data->numbers)+$request->humidity)/($first_data->numbers+1),
+                    'numbers'=>($first_data->numbers+1),
                     'time' => $m_time
                 ]);
         }else{
@@ -121,13 +121,13 @@ class RecordController extends Controller
 
         $m_time="{$time->year}-{$time->month}-{$time->day} ".floor($time->hour/4*4).":00:00";
         $m_time=Carbon::parse($m_time);
-        $data=RecordW::where('time',$m_time)->first();
-        if($data){
-            RecordW::where('time',$m_time)
-                ->update([
-                    'avg_tem' => (($data->avg_tem*$data->numbers)+$request->temperature)/($data->numbers+1),
-                    'avg_hum'=>(($data->avg_hum*$data->numbers)+$request->humidity)/($data->numbers+1),
-                    'numbers'=>($data->numbers+1),
+        $data=RecordW::where('time',$m_time);
+        $first_data=$data->first();
+        if($first_data){
+            $data->update([
+                    'avg_tem' => (($first_data->avg_tem*$first_data->numbers)+$request->temperature)/($first_data->numbers+1),
+                    'avg_hum'=>(($first_data->avg_hum*$first_data->numbers)+$request->humidity)/($first_data->numbers+1),
+                    'numbers'=>($first_data->numbers+1),
                     'time' => $m_time
                 ]);
         }else{
@@ -142,13 +142,13 @@ class RecordController extends Controller
 
         $m_time="{$time->year}-{$time->month}-{$time->day} 00:00:00";
         $m_time=Carbon::parse($m_time);
-        $data=RecordMM::where('time',$m_time)->first();
-        if($data){
-            RecordMM::where('time',$m_time)
-                ->update([
-                    'avg_tem' => (($data->avg_tem*$data->numbers)+$request->temperature)/($data->numbers+1),
-                    'avg_hum'=>(($data->avg_hum*$data->numbers)+$request->humidity)/($data->numbers+1),
-                    'numbers'=>($data->numbers+1),
+        $data=RecordMM::where('time',$m_time);
+        $first_data=$data->first();
+        if($first_data){
+            $data->update([
+                    'avg_tem' => (($first_data->avg_tem*$first_data->numbers)+$request->temperature)/($first_data->numbers+1),
+                    'avg_hum'=>(($first_data->avg_hum*$first_data->numbers)+$request->humidity)/($first_data->numbers+1),
+                    'numbers'=>($first_data->numbers+1),
                     'time' => $m_time
                 ]);
         }else{
@@ -163,13 +163,13 @@ class RecordController extends Controller
 
         $m_time="{$time->year}-{$time->month}-01 00:00:00";
         $m_time=Carbon::parse($m_time);
-        $data=RecordHM::where('time',$m_time)->first();
-        if($data){
-            RecordHM::where('time',$m_time)
-                ->update([
-                    'avg_tem' => (($data->avg_tem*$data->numbers)+$request->temperature)/($data->numbers+1),
-                    'avg_hum'=>(($data->avg_hum*$data->numbers)+$request->humidity)/($data->numbers+1),
-                    'numbers'=>($data->numbers+1),
+        $data=RecordHM::where('time',$m_time);
+        $first_data=$data->first();
+        if($first_data){
+            $data->update([
+                    'avg_tem' => (($first_data->avg_tem*$first_data->numbers)+$request->temperature)/($first_data->numbers+1),
+                    'avg_hum'=>(($first_data->avg_hum*$first_data->numbers)+$request->humidity)/($first_data->numbers+1),
+                    'numbers'=>($first_data->numbers+1),
                     'time' => $m_time
                 ]);
         }else{
@@ -184,13 +184,13 @@ class RecordController extends Controller
 
         $m_time="{$time->year}-{$time->month}-01 00:00:00";
         $m_time=Carbon::parse($m_time);
-        $data=RecordY::where('time',$m_time)->first();
-        if($data){
-            RecordY::where('time',$m_time)
-                ->update([
-                    'avg_tem' => (($data->avg_tem*$data->numbers)+$request->temperature)/($data->numbers+1),
-                    'avg_hum'=>(($data->avg_hum*$data->numbers)+$request->humidity)/($data->numbers+1),
-                    'numbers'=>($data->numbers+1),
+        $data=RecordY::where('time',$m_time);
+        $first_data=$data->first();
+        if($first_data){
+            $data->update([
+                    'avg_tem' => (($first_data->avg_tem*$first_data->numbers)+$request->temperature)/($first_data->numbers+1),
+                    'avg_hum'=>(($first_data->avg_hum*$first_data->numbers)+$request->humidity)/($first_data->numbers+1),
+                    'numbers'=>($first_data->numbers+1),
                     'time' => $m_time
                 ]);
         }else{
@@ -202,7 +202,7 @@ class RecordController extends Controller
             ];
             $record = RecordY::create($data);
         }
-        return response($record, Response::HTTP_CREATED);
+        return response($records, Response::HTTP_CREATED);
     }
 
     /**
