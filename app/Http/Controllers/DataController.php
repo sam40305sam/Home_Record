@@ -342,50 +342,64 @@ class DataController extends Controller
     public function show($range)
     {
         if ($range == "m" || $range == "H" || $range == "D" || $range == "W" || $range == "M" || $range == "HM" || $range == "Y") {
-            $latest = Carbon::parse(Record::latest()->first()->time);
-            $from_date = Carbon::now();
+            $latest = "";
+            $from_date = "";
             $item_title = "";
             $records = "";
             switch ($range) {
                 case "m":
-                    $from_date = Carbon::parse(RecordM::latest()->first()->time)->subMinute(1);
+                    $latest_data=RecordM::orderBy('id', 'desc')->first();
+                    $latest = Carbon::parse($latest_data->time);
+                    $from_date = Carbon::parse($latest_data->time)->subMinute(1);
                     $records = RecordM::whereBetween('time', [$from_date, $latest])
                         ->get();
                     $item_title = "一分鐘";
                     break;
                 case "H":
-                    $from_date = Carbon::parse(RecordH::latest()->first()->time)->subHours(1);
+                    $latest_data=RecordH::orderBy('id', 'desc')->first();
+                    $latest = Carbon::parse($latest_data->time);
+                    $from_date = Carbon::parse($latest_data->time)->subHours(1);
                     $records = RecordH::whereBetween('time', [$from_date, $latest])
                         ->get();
 
                     $item_title = "一小時";
                     break;
                 case "D":
-                    $from_date = Carbon::parse(RecordD::latest()->first()->time)->subDays(1);
+                    $latest_data=RecordD::orderBy('id', 'desc')->first();
+                    $latest = Carbon::parse($latest_data->time);
+                    $from_date = Carbon::parse($latest_data->time)->subDays(1);
                     $records = RecordD::whereBetween('time', [$from_date, $latest])
                         ->get();
                     $item_title = "一天";
                     break;
                 case "W":
-                    $from_date = Carbon::parse(RecordW::latest()->first()->time)->subDays(7);
+                    $latest_data=RecordW::orderBy('id', 'desc')->first();
+                    $latest = Carbon::parse($latest_data->time);
+                    $from_date = Carbon::parse($latest_data->time)->subDays(7);
                     $records = RecordW::whereBetween('time', [$from_date, $latest])
                         ->get();
                     $item_title = "一周";
                     break;
                 case "M":
-                    $from_date = Carbon::parse(RecordMM::latest()->first()->time)->subMonths(1);
+                    $latest_data=RecordMM::orderBy('id', 'desc')->first();
+                    $latest = Carbon::parse($latest_data->time);
+                    $from_date = Carbon::parse($latest_data->time)->subMonths(1);
                     $records = RecordMM::whereBetween('time', [$from_date, $latest])
                         ->get();
                     $item_title = "一個月";
                     break;
                 case "HM":
-                    $from_date = Carbon::parse(RecordHM::latest()->first()->time)->subMonths(6);
+                    $latest_data=RecordHM::orderBy('id', 'desc')->first();
+                    $latest = Carbon::parse($latest_data->time);
+                    $from_date = Carbon::parse($latest_data->time)->subMonths(6);
                     $records = RecordHM::whereBetween('time', [$from_date, $latest])
                         ->get();
                     $item_title = "半年";
                     break;
                 case "Y":
-                    $from_date = Carbon::parse(RecordY::latest()->first()->time)->subYears(1);
+                    $latest_data=RecordY::orderBy('id', 'desc')->first();
+                    $latest = Carbon::parse($latest_data->time);
+                    $from_date = Carbon::parse($latest_data->time)->subYears(1);
                     $records = RecordY::whereBetween('time', [$from_date, $latest])
                         ->get();
                     $item_title = "一年";
