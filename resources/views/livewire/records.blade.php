@@ -45,7 +45,7 @@
         series: [{
             name: 'temperature',
             data: [
-                @if($data->count())
+                @if(!$data->isEmpty())
                 @foreach($data as $item)
                     {
                         x:"{{$item->time}}",
@@ -112,7 +112,7 @@
         series: [{
             name: 'humidity',
             data: [
-                @if($data->count())
+                @if(!$data->isEmpty())
                 @foreach($data as $item)
                     {
                         x:"{{$item->time}}",

@@ -38,7 +38,7 @@
         series: [{
             name: 'Requests',
             data: [
-                @if($data->count())
+                @if(!$data->isEmpty())
                 @foreach($data as $item)
                     {
                         x:"{{$item->time}}",
