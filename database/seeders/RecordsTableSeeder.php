@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Record;
-use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 

@@ -9,11 +9,11 @@ class RecordH extends Model
 {
     use HasFactory;
 
-    protected $table = 'records_H';
+    protected $table = 'recordsh';
 
     protected $fillable = [
-        'avg_tem',
-        'avg_hum',
+        'temperature',
+        'humidity',
         'numbers',
         'time',
     ];
