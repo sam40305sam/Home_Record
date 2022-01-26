@@ -27,7 +27,7 @@ Route::group(['middleware'=>[
 ]], function(){
 
     Route::get("/dashboard", function(){
-        return view('dashboard');
+        return view('admin.records');
     })->name('dashboard');
 
     Route::get("/records", function(){
