@@ -17,7 +17,7 @@ class RecordsM extends Component
             'data' => $this->read(),
         ]);
     }
-
+    
     public function read()
     {
         $latest_data=Record::orderBy('id', 'desc')->first();
