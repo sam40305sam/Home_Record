@@ -45,13 +45,13 @@
             xaxis: {
                 type: 'datetime',
                 labels: {
-                    format: 'yyyy-MM-dd HH:mm:ss',
+                    format: 'yyyy-MM-dd',
                     datetimeUTC:false,
                 }
             },
             tooltip: {
                 x: {
-                    format: 'yyyy-MM-dd HH:mm:ss'
+                    format: 'yyyy-MM-dd'
                 }
             }
         }
