@@ -26,7 +26,7 @@ class AddIndexToRecordsmmTable extends Migration
     public function down()
     {
         Schema::table('recordsmm', function (Blueprint $table) {
-            $table->dropIndex('recordsmm_time_index');
+            $table->dropIndex('recordsmm_time_index'); 
         });
     }
 }
