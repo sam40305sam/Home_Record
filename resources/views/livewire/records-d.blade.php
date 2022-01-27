@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <div class="card bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
+    <div class="mt-10 card bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
         <div class="flex flex-row flex-wrap justify-between items-center">
             <h2 class="font-bold text-lg">濕度</h2>
         </div>
@@ -41,7 +41,7 @@
                     @foreach($data as $item)
                         {
                             x:"{{$item->time}}",
-                            y:"{{$item->temperature}}",
+                            y:"{{round($item->temperature/$item->numbers,2)}}",
                         }
                         @if(!($loop->last))
                         ,
@@ -53,13 +53,13 @@
             xaxis: {
                 type: 'datetime',
                 labels: {
-                    format: 'yyyy-MM-dd HH:mm:ss',
+                    format: 'yyyy-MM-dd HH',
                     datetimeUTC:false,
                 }
             },
             tooltip: {
                 x: {
-                    format: 'yyyy-MM-dd HH:mm:ss'
+                    format: 'yyyy-MM-dd HH'
                 }
             }
         }
@@ -95,7 +95,7 @@
                     @foreach($data as $item)
                         {
                             x:"{{$item->time}}",
-                            y:"{{$item->humidity}}",
+                            y:"{{round($item->humidity/$item->numbers,2)}}",
                         }
                         @if(!($loop->last))
                         ,
@@ -107,13 +107,13 @@
             xaxis: {
                 type: 'datetime',
                 labels: {
-                    format: 'yyyy-MM-dd HH:mm:ss',
+                    format: 'yyyy-MM-dd HH',
                     datetimeUTC:false,
                 }
             },
             tooltip: {
                 x: {
-                    format: 'yyyy-MM-dd HH:mm:ss'
+                    format: 'yyyy-MM-dd HH'
                 }
             }
         }
