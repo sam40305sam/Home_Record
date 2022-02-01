@@ -67,7 +67,7 @@ class RecordController extends Controller
             $record = RecordD::create($data);
         }
 
-        $m_time="{$time->year}-{$time->month}-{$time->day} ".floor($time->hour/4*4).":00:00";
+        $m_time="{$time->year}-{$time->month}-{$time->day} ".(floor($time->hour/4)*4).":00:00";
         $m_time=Carbon::parse($m_time);
         $data=RecordW::where('time',$m_time);
         $first_data=$data->first();
