@@ -3,14 +3,13 @@
 namespace App\Http\Livewire;
 
 use App\Models\RecordH;
-use App\Models\Record;
-use Livewire\Component;
 use Illuminate\Support\Carbon;
+use Livewire\Component;
 
 class RecordsH extends Component
 {
 
-    protected $data=[];
+    protected $data = [];
 
     public function render()
     {
@@ -56,12 +55,12 @@ class RecordsH extends Component
 
     public function read()
     {
-        $latest_data=RecordH::orderBy('id', 'desc')->first();
+        $latest_data = RecordH::orderBy('id', 'desc')->first();
         $latest = Carbon::parse($latest_data->time);
         $from_date = Carbon::parse($latest_data->time)->subHours(1);
         $records = RecordH::whereBetween('time', [$from_date, $latest])
-            ->orderBy('id', 'desc')   
-            ->get(); 
+            ->orderBy('id', 'desc')
+            ->get();
         return $records;
     }
 }
