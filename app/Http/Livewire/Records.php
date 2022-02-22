@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\RecordH;
+use App\Models\RecordD;
 use Livewire\Component;
 use Illuminate\Support\Carbon;
 
