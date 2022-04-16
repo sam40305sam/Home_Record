@@ -20,11 +20,11 @@ class RecordsY extends Component
 
     public function read()
     {
-        $latest_data=RecordY::orderBy('time', 'desc')->first();
+        $latest_data=RecordY::orderBy('id', 'desc')->first();
         $latest = Carbon::parse($latest_data->time);
         $from_date = Carbon::parse($latest_data->time)->subYears(1);
         $records = RecordY::whereBetween('time', [$from_date, $latest])
-            ->orderBy('time', 'desc')   
+            ->orderBy('id', 'desc')   
             ->get(); 
         return $records;
     }
