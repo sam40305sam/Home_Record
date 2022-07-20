@@ -18,16 +18,8 @@ use App\Http\Controllers\AuthController;
 */
 Route::post('login', [AuthController::class, "login"])->name("user.login");
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::post('record', [RecordController::class, "store"])->name("record.store");
-    // Route::match(['put', 'patch'], 'record/{record}', [RecordController::class, "update"])->name("record.update");
-    // Route::delete('record/{record}', [RecordController::class, "destroy"])->name("record.destroy");
 
     Route::post('logout', [AuthController::class, "logout"])->name("user.logout");
 });
-
-
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });

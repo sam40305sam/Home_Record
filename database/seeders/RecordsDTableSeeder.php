@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Record;
+use App\Models\RecordD;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
 
-class RecordsTableSeeder extends Seeder
+class RecordsDTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +15,7 @@ class RecordsTableSeeder extends Seeder
      */
     public function run()
     {
-        Record::truncate();
-        Record::factory(100)->create();
+        RecordD::truncate();
+        RecordD::factory(100)->create();
     }
 }

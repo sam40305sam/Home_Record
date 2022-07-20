@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIndexToRecordshTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class AddIndexToRecordshTable extends Migration
      */
     public function up()
     {
-        Schema::table('recordsh', function (Blueprint $table) {
+        Schema::create('records', function (Blueprint $table) {
+            $table->id();
+            $table->decimal('temperature', 5, 2)->comment("溫度");
+            $table->decimal('humidity', 5, 2)->comment("濕度");
+            $table->timestamp('time')->comment("紀錄時間");
             $table->index('time');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +30,6 @@ class AddIndexToRecordshTable extends Migration
      */
     public function down()
     {
-        Schema::table('recordsh', function (Blueprint $table) {
-            $table->dropIndex('recordsh_time_index');
-        });
+        Schema::dropIfExists('records');
     }
-}
+};

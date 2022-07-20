@@ -29,7 +29,7 @@
             series: [{
                 name: 'temperature',
                 data: [
-                    @if(!$data->isEmpty())
+                    @if($data!=null)
                     @foreach($data as $item)
                         {
                             x:"{{$item->time}}",
