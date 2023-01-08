@@ -13,11 +13,6 @@ class RecordControllerTest extends TestCase
     use RefreshDatabase;
     use InteractsWithAuthentication;
 
-    public function test_example()
-    {
-        $this->assertTrue(true);
-    }
-
     public function test_store()
     {
         $user = User::factory()->create();
