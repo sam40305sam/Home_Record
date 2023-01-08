@@ -78,8 +78,13 @@ class RecordsHM extends Component
     public function read()
     {
         $latest_data=RecordY::orderBy('id', 'desc')->first();
-        $latest = Carbon::parse($latest_data->time);
-        $from_date = Carbon::parse($latest_data->time)->subMonths(6);
+        if(!$latest_data){
+            $latest = Carbon::now();
+            $from_date = Carbon::now()->subMonths(6);
+        }else{
+            $latest = Carbon::parse($latest_data->time);
+            $from_date = Carbon::parse($latest_data->time)->subMonths(6);
+        }
         $records = RecordY::whereBetween('time', [$from_date, $latest])
             ->orderBy('id', 'desc')   
             ->get(); 

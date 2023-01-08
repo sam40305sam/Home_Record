@@ -56,8 +56,13 @@ class RecordsD extends Component
     public function read()
     {
         $latest_data=RecordD::orderBy('id', 'desc')->first();
-        $latest = Carbon::parse($latest_data->time);
-        $from_date = Carbon::parse($latest_data->time)->subDays(1);
+        if(!$latest_data){
+            $latest = Carbon::now();
+            $from_date = Carbon::now()->subDays(1);
+        }else{
+            $latest = Carbon::parse($latest_data->time);
+            $from_date = Carbon::parse($latest_data->time)->subDays(1);
+        }
         $records = RecordD::whereBetween('time', [$from_date, $latest])
             ->orderBy('id', 'desc')   
             ->get(); 

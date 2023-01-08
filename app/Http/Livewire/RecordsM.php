@@ -21,8 +21,13 @@ class RecordsM extends Component
     public function read()
     {
         $latest_data=Record::orderBy('id', 'desc')->first();
-        $latest = Carbon::parse($latest_data->time);
-        $from_date = Carbon::parse($latest_data->time)->subMinute(1);
+        if(!$latest_data){
+            $latest = Carbon::now();
+            $from_date = Carbon::now()->subMinute(1);
+        }else{
+            $latest = Carbon::parse($latest_data->time);
+            $from_date = Carbon::parse($latest_data->time)->subMinute(1);
+        }
         $records = Record::whereBetween('time', [$from_date, $latest])
             ->orderBy('id', 'desc')    
             ->get();

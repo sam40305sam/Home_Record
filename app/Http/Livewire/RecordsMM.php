@@ -55,8 +55,13 @@ class RecordsMM extends Component
     public function read()
     {
         $latest_data=RecordMM::orderBy('id', 'desc')->first();
-        $latest = Carbon::parse($latest_data->time);
-        $from_date = Carbon::parse($latest_data->time)->subMonths(1);
+        if(!$latest_data){
+            $latest = Carbon::now();
+            $from_date = Carbon::now()->subMonths(1);
+        }else{
+            $latest = Carbon::parse($latest_data->time);
+            $from_date = Carbon::parse($latest_data->time)->subMonths(1);
+        }
         $records = RecordMM::whereBetween('time', [$from_date, $latest])
             ->orderBy('id', 'desc')   
             ->get(); 
