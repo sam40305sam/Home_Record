@@ -36,62 +36,68 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
-import DrawerListItem from 'components/Drawer/DrawerListItem.vue'
+import DrawerListItem from "components/Drawer/DrawerListItem.vue";
 
 const linksList = ref([
   {
-    title: 'Dashboard',
-    icon: 'speed',
-    link: '/'
+    title: "Dashboard",
+    icon: "speed",
+    link: "/",
   },
   {
-    title: 'Charts',
-    icon: 'show_chart',
+    title: "Charts",
+    icon: "show_chart",
     childrens: [
       {
-        title: '一分',
-        icon: 'school',
-        link: '/records/min'
-      }, {
-        title: '一小時',
-        icon: 'school',
-        link: '/records/hr'
-      }, {
-        title: '一天',
-        icon: 'school',
-        link: '/records/day'
-      }, {
-        title: '一週',
-        icon: 'school',
-        link: '/records/week'
-      }, {
-        title: '一月',
-        icon: 'school',
-        link: '/records/month'
-      }, {
-        title: '半年',
-        icon: 'school',
-        link: '/records/half_year'
-      }, {
-        title: '一年',
-        icon: 'school',
-        link: '/records/year'
-      }
-    ]
+        title: "一分",
+        icon: "school",
+        link: "/records/min",
+      },
+      {
+        title: "一小時",
+        icon: "school",
+        link: "/records/hr",
+      },
+      {
+        title: "一天",
+        icon: "school",
+        link: "/records/day",
+      },
+      {
+        title: "一週",
+        icon: "school",
+        link: "/records/week",
+      },
+      {
+        title: "一月",
+        icon: "school",
+        link: "/records/month",
+      },
+      {
+        title: "半年",
+        icon: "school",
+        link: "/records/half_year",
+      },
+      {
+        title: "一年",
+        icon: "school",
+        link: "/records/year",
+      },
+    ],
   },
   {
-    title: 'Status',
-    icon: 'signal_cellular_alt',
-    link: '/status'
-  }
-])
+    title: "Status",
+    icon: "signal_cellular_alt",
+    link: "/status",
+  },
+]);
 
-const leftDrawerOpen = ref(false)
+const leftDrawerOpen = ref(false);
 const toggleLeftDrawer = () => {
-  leftDrawerOpen.value = !leftDrawerOpen.value
-}
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+};
 </script>
 
 <style lang="scss" scoped>

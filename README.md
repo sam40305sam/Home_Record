@@ -23,6 +23,14 @@ npm run lint
 ```
 
 
+### Format the files
+```bash
+yarn format
+# or
+npm run format
+```
+
+
 
 ### Build the app for production
 ```bash

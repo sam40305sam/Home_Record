@@ -1,9 +1,5 @@
 <template>
-  <q-item
-    v-if:="!content.childrens"
-    clickable
-    :to="content.link"
-  >
+  <q-item v-if:="!content.childrens" clickable :to="content.link">
     <q-item-section v-if="content.icon" avatar>
       <q-icon :name="content.icon" />
     </q-item-section>
@@ -34,18 +30,16 @@
         <q-item-label>{{ child.title }}</q-item-label>
         <q-item-label caption>{{ child.caption }}</q-item-label>
         <!-- link -->
-
       </q-item-section>
     </q-item>
   </q-expansion-item>
 </template>
 
 <script setup>
-
 defineProps({
   content: {
     type: Object,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
