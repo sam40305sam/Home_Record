@@ -1,0 +1,27 @@
+version: "3"
+services:
+  home-record-app:
+    build:
+      args:
+        user: root
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www/
+    networks: 
+      - mysql-net
+  home-record-nginx:
+    image: nginx:alpine
+    ports:
+      - "8083:80"
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks: 
+      - mysql-net
+
+networks:
+  mysql-net:
+    external: true
